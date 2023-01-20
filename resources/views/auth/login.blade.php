@@ -28,19 +28,19 @@
                     <div class="card-body">
                         <form method="post" action="{{ url('/login') }}">
                             @csrf
-                            <h1>Login</h1>
-                            <p class="text-muted">Sign In to your account</p>
+                            <h1>Patio Tuerca</h1>
+                            <p class="text-muted">Ingresa a tu cuenta</p>
                             <div class="input-group mb-3">
                                 <div class="input-group-prepend">
                                     <span class="input-group-text">
                                       <i class="icon-user"></i>
                                     </span>
                                 </div>
-                                <input type="email" class="form-control {{ $errors->has('email')?'is-invalid':'' }}" name="email" value="{{ old('email') }}"
-                                       placeholder="Email">
-                                @if ($errors->has('email'))
+                                <input type="text" class="form-control {{ $errors->has('usu_usuario')?'is-invalid':'' }}" name="usu_usuario" value="{{ old('usu_usuario') }}"
+                                       placeholder="Escriba su Usuario">
+                                @if ($errors->has('usu_usuario'))
                                     <span class="invalid-feedback">
-                                        <strong>{{ $errors->first('email') }}</strong>
+                                        <strong>{{ $errors->first('usu_usuario') }}</strong>
                                     </span>
                                 @endif
                             </div>
@@ -59,7 +59,7 @@
                             </div>
                             <div class="row">
                                 <div class="col-6">
-                                    <button class="btn btn-primary px-4" type="submit">Login</button>
+                                    <button class="btn btn-primary px-4" type="submit">Ingresar</button>
                                 </div>
                                 <div class="col-6 text-right">
                                     <a class="btn btn-link px-0" href="{{ url('/password/reset') }}">
