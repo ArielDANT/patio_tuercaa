@@ -3,7 +3,7 @@
 @section('content')
     <ol class="breadcrumb">
       <li class="breadcrumb-item">
-         <a href="{!! route('empleados.index') !!}">Empleados {{ $fecha }}</a>
+         <a href="{!! route('vehiculos.index') !!}">Vehiculos</a>
       </li>
       <li class="breadcrumb-item active">Crear</li>
     </ol>
@@ -15,12 +15,12 @@
                         <div class="card">
                             <div class="card-header">
                                 <i class="fa fa-plus-square-o fa-lg"></i>
-                                <strong>Crear Empleados</strong>
+                                <strong>Create Vehiculos</strong>
                             </div>
                             <div class="card-body">
-                                {!! Form::open(['route' => 'empleados.store']) !!}
+                                {!! Form::open(['route' => 'vehiculos.store']) !!}
 
-                                   @include('empleados.fields')
+                                   @include('vehiculos.fields')
 
                                 {!! Form::close() !!}
                             </div>

@@ -3,7 +3,7 @@
 @section('content')
     <ol class="breadcrumb">
           <li class="breadcrumb-item">
-             <a href="{!! route('empleados.index') !!}">Empleados</a>
+             <a href="{!! route('clientes.index') !!}">Clientes</a>
           </li>
           <li class="breadcrumb-item active">Editar</li>
         </ol>
@@ -15,12 +15,12 @@
                       <div class="card">
                           <div class="card-header">
                               <i class="fa fa-edit fa-lg"></i>
-                              <strong>Editar Empleados</strong>
+                              <strong>Editar Clientes</strong>
                           </div>
                           <div class="card-body">
-                              {!! Form::model($empleados, ['route' => ['empleados.update', $empleados->epl_id], 'method' => 'patch']) !!}
+                              {!! Form::model($clientes, ['route' => ['clientes.update', $clientes->cli_id], 'method' => 'patch']) !!}
 
-                              @include('empleados.fields')
+                              @include('clientes.fields')
 
                               {!! Form::close() !!}
                             </div>

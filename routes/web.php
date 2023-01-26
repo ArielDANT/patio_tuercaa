@@ -25,3 +25,15 @@ require __DIR__.'/auth.php';
 
 
 Route::resource('empleados', App\Http\Controllers\EmpleadosController::class);
+
+
+Route::resource('vehiculos', App\Http\Controllers\VehiculosController::class);
+
+
+Route::resource('empresas', App\Http\Controllers\EmpresaController::class);
+
+
+Route::resource('proveedores', App\Http\Controllers\ProveedoresController::class);
+
+
+Route::resource('clientes', App\Http\Controllers\ClientesController::class);

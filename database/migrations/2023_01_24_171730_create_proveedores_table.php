@@ -21,7 +21,8 @@ class CreateProveedoresTable extends Migration
             $table->string('pro_telefono');
             $table->string('pro_correo')->unique();
             $table->string('pro_cedula')->unique();
-            $table->string('pro_descripcion')->default(1);
+            $table->string('pro_descripcion');
+            $table->string('pro_estado')->default(1);
         });
     }
 
