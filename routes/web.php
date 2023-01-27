@@ -37,3 +37,6 @@ Route::resource('proveedores', App\Http\Controllers\ProveedoresController::class
 
 
 Route::resource('clientes', App\Http\Controllers\ClientesController::class);
+
+
+Route::resource('users', App\Http\Controllers\UsersController::class);
