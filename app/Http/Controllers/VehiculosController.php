@@ -10,6 +10,7 @@ use Illuminate\Http\Request;
 use Flash;
 use Response;
 use App\Models\Empresa;
+use DB;
 
 class VehiculosController extends AppBaseController
 {
@@ -30,7 +31,8 @@ class VehiculosController extends AppBaseController
      */
     public function index(Request $request)
     {
-        $vehiculos = $this->vehiculosRepository->all();
+        //$vehiculos = $this->vehiculosRepository->all();
+     $vehiculos=DB::select("SELECT * FROM empresa e join vehiculos v on e.emp_id=v.emp_id");
 
         return view('vehiculos.index')
             ->with('vehiculos', $vehiculos);

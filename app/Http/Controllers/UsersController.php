@@ -10,6 +10,8 @@ use Illuminate\Http\Request;
 use Flash;
 use Response;
 use App\Models\Empleados;
+use DB;
+use App\Models\Users;
 
 class UsersController extends AppBaseController
 {
@@ -30,8 +32,9 @@ class UsersController extends AppBaseController
      */
     public function index(Request $request)
     {
-        $users = $this->usersRepository->all();
-
+        //$users = $this->usersRepository->all();
+        //JOIN 
+        $users = DB::select("SELECT * FROM users u join empleados e on u.epl_id=e.epl_id");
         return view('users.index')
             ->with('users', $users);
     }
@@ -162,4 +165,58 @@ class UsersController extends AppBaseController
 
         return redirect(route('users.index'));
     }
-}
+        public function change_password(Request $request){
+        $datos=$request->all();
+        $usu_id=$datos['usu_id'];
+        $Usuario=Users::find($usu_id);
+        $new_pass=$datos['new_password'];
+        $confirm_new_pass=$datos['confirm_new_password'];
+
+        if ($new_pass==$confirm_new_pass){
+        $Usuario->update(['password'=>bcrypt($new_pass)]);
+        Flash::success('clave cambiada correctamente');
+        return redirect(route('users.index'));
+
+        }
+        Flash::error('Las claves no son iguales');
+        return redirect(route('users.index'));
+        }
+
+    public function change_password_profile(Request $request){
+        $dt=$request->all();
+        $usu_id=$dt['usa_id'];
+        $Usuario=Users::find($usu_id);
+        $new_pass=$dt['nueva_clave'];
+        $confirm_new_pass=$dt['confirmar_nueva_clave'];
+
+        if ($new_pass==$confirm_new_pass){
+        $Usuario->update(['password'=>bcrypt($new_pass)]);
+        Flash::success('clave cambiada correctamente');
+        return redirect(route('users.index'));
+
+        }
+        Flash::error('Las claves no son iguales');
+        return redirect(route('users.index'));
+        }
+       // if(isset($datos['btn_change'])){
+        //     dd('CAMBIATE DE CARRERA GUAMBRA');
+       // }else{
+        //    return view('users.change_password_profile');
+        //}
+
+       // $datos=$request->all();
+      //  $usu_id=$datos['usu_id'];
+     //  // $Usuario=Users::find($usu_id);
+      //  $new_pass=$datos['new_password'];
+      //  $confirm_new_pass=$datos['confirm_new_password'];
+//
+      //  if ($new_pass==$confirm_new_pass){
+      //  $Usuario->update(['password'=>bcrypt($new_pass)]);
+      //  Flash::success('clave cambiada correctamente');
+      //  return redirect(route('users.index'));
+//
+      //  }
+       // Flash::error('Las claves no son iguales');
+        //return redirect(route('users.index'));
+          }
+

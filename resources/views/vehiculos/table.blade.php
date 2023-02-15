@@ -2,7 +2,7 @@
     <table class="table table-striped" id="vehiculos-table">
         <thead>
             <tr>
-                <th>ID</th>
+                <th>Empresa</th>
         <th>Marca</th>
         <th>Modelo</th>
         <th>Anio</th>
@@ -16,7 +16,7 @@
         <tbody>
         @foreach($vehiculos as $vehiculos)
             <tr>
-                <td>{{ $vehiculos->emp_id }}</td>
+                <td>{{ $vehiculos->emp_nombre}}</td>
             <td>{{ $vehiculos->veh_marca }}</td>
             <td>{{ $vehiculos->veh_modelo }}</td>
             <td>{{ $vehiculos->veh_anio }}</td>
