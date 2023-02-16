@@ -12,6 +12,7 @@ use Response;
 use App\Models\Empleados;
 use DB;
 use App\Models\Users;
+use Auth;
 
 class UsersController extends AppBaseController
 {
@@ -183,26 +184,29 @@ class UsersController extends AppBaseController
         }
 
     public function change_password_profile(Request $request){
-        $dt=$request->all();
-        $usu_id=$dt['usa_id'];
+        $datos=$request->all();
+        if(isset($datos['btn_change'])){
+       
+        $usu_id=Auth::user()->id;
         $Usuario=Users::find($usu_id);
-        $new_pass=$dt['nueva_clave'];
-        $confirm_new_pass=$dt['confirmar_nueva_clave'];
+        $nueva_clave=$datos['nueva_clave'];
+        $confirme_nueva_clave=$datos['confirme_nueva_clave'];
+       
+        if ($nueva_clave==$confirme_nueva_clave){
 
-        if ($new_pass==$confirm_new_pass){
-        $Usuario->update(['password'=>bcrypt($new_pass)]);
+        $Usuario->update(['password'=>bcrypt($nueva_clave)]);
         Flash::success('clave cambiada correctamente');
         return redirect(route('users.index'));
 
+        }else{
+            dd('Habla serio, cambia bien ve');
+
         }
-        Flash::error('Las claves no son iguales');
-        return redirect(route('users.index'));
+
+        }else{
+            return view('users.change_password_profile');
+
         }
-       // if(isset($datos['btn_change'])){
-        //     dd('CAMBIATE DE CARRERA GUAMBRA');
-       // }else{
-        //    return view('users.change_password_profile');
-        //}
 
        // $datos=$request->all();
       //  $usu_id=$datos['usu_id'];
@@ -218,5 +222,8 @@ class UsersController extends AppBaseController
       //  }
        // Flash::error('Las claves no son iguales');
         //return redirect(route('users.index'));
+          
           }
+      }
+
 
