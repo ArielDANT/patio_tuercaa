@@ -21,6 +21,8 @@ class DatabaseSeeder extends Seeder
             VehiculoSeeder::class,
             ProveedorSeeder::class,
             ClienteSeeder::class,
+            InventarioSeeder::class,
+            InventarioDetSeeder::class,
             //EmpresaSeeder::
         ]);
     }

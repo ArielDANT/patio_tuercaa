@@ -46,3 +46,8 @@ Route::post('change_password', 'App\Http\Controllers\UsersController@change_pass
 Route::get('change_password_profile', 'App\Http\Controllers\UsersController@change_password_profile')->name('change_password_profile');
 
 Route::post('change_password_profile', 'App\Http\Controllers\UsersController@change_password_profile')->name('change_password_profile');
+
+Route::resource('inventarios', App\Http\Controllers\InventarioController::class);
+
+
+Route::resource('inventarioDets', App\Http\Controllers\InventarioDetController::class);

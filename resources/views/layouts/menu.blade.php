@@ -34,3 +34,15 @@
         <span>Proveedores</span>
     </a>
 </li>
+<li class="nav-item {{ Request::is('inventarios*') ? 'active' : '' }}">
+    <a class="nav-link" href="{{ route('inventarios.index') }}">
+        <i class="nav-icon icon-cursor"></i>
+        <span>Inventarios</span>
+    </a>
+</li>
+<li class="nav-item {{ Request::is('inventarioDets*') ? 'active' : '' }}">
+    <a class="nav-link" href="{{ route('inventarioDets.index') }}">
+        <i class="nav-icon icon-cursor"></i>
+        <span>Inventario Dets</span>
+    </a>
+</li>

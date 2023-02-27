@@ -17,7 +17,7 @@ class VehiculoSeeder extends Seeder
         //
         DB::table('vehiculos')->insert([
             'emp_id'=>1,
-            'veh_marca'=>'LABORGINI',
+            'veh_marca'=>'LAMBORGHINI',
             'veh_modelo'=>'AVENTADOR',
             'veh_anio'=>'2023',
             'veh_kilometraje'=>'0',
