@@ -9,6 +9,7 @@ use App\Http\Controllers\AppBaseController;
 use Illuminate\Http\Request;
 use Flash;
 use Response;
+use App\Models\Proveedores;
 
 class InventarioController extends AppBaseController
 {
@@ -42,7 +43,12 @@ class InventarioController extends AppBaseController
      */
     public function create()
     {
-        return view('inventarios.create');
+        //$proveedores=Proveedores::orderBy('pro_nombres')->pluck('pro_nombres','pro_id');
+        //dd($proveedores);
+        $proveedores=Proveedores::orderBy('pro_nombres')->pluck('pro_nombres','pro_id');
+
+        return view('inventarios.create')
+        ->with('proveedores', $proveedores);
     }
 
     /**

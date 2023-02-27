@@ -20,7 +20,7 @@ use Illuminate\Database\Eloquent\Factories\HasFactory;
  */
 class Inventario extends Model
 {
-    use SoftDeletes;
+    //use SoftDeletes;
 
     use HasFactory;
 
