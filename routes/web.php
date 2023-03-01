@@ -51,3 +51,7 @@ Route::resource('inventarios', App\Http\Controllers\InventarioController::class)
 
 
 Route::resource('inventarioDets', App\Http\Controllers\InventarioDetController::class);
+
+
+Route::post('/inventarios/create/busca_vehiculos',
+    'App\Http\Controllers\VehiculosController@busca_vehiculos')->name('busca_vehiculos');

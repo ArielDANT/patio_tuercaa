@@ -161,4 +161,9 @@ class VehiculosController extends AppBaseController
 
         return redirect(route('vehiculos.index'));
     }
+
+    public function busca_vehiculos(Request $rq)
+    {
+    dd($rq->all());
+}
 }

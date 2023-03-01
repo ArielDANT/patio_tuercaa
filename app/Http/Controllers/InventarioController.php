@@ -10,6 +10,7 @@ use Illuminate\Http\Request;
 use Flash;
 use Response;
 use App\Models\Proveedores;
+use App\Models\Vehiculos;
 
 class InventarioController extends AppBaseController
 {
@@ -46,6 +47,8 @@ class InventarioController extends AppBaseController
         //$proveedores=Proveedores::orderBy('pro_nombres')->pluck('pro_nombres','pro_id');
         //dd($proveedores);
         $proveedores=Proveedores::orderBy('pro_nombres')->pluck('pro_nombres','pro_id');
+
+        //$vehiculos=Vehiculos::orderBy('pro_nombres')->pluck('pro_nombres','pro_id');
 
         return view('inventarios.create')
         ->with('proveedores', $proveedores);

@@ -1,3 +1,22 @@
+<script src="https://code.jquery.com/jquery-3.3.1.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/axios/dist/axios.min.js"></script>
+<script>
+    $(document).on("blur","input[name=veh_id]", ()=>{
+        //$("#mld_autos").modal("show");
+        getAuto();        
+    });
+    async function getAuto(){
+        url=window.location;
+        const vehiculo=$("input[name=veh_id]").val();
+        const reponse = await axios.post(url+"/busca_vehiculos", {vehiculo:vehiculo});
+        
+        const result=response.data;
+        console.log(result);
+    }
+        //function(){}
+        //()=>{}
+</script>
+
 <div class="row">
     
 <!-- Pro Id Field -->
@@ -45,30 +64,55 @@
 <div class="row">
     <div class="col-md-4">
     <label for="">Cantidad</label>
-    {!! Form::number('ivd_cantidad', null, ['class' => 'form-control','maxlength' => 255,'maxlength' => 255]) !!}
+    {!! Form::number('ivd_cantidad', null, ['class' => 'form-control']) !!}
     </div>
+
     <div class="col-md-4">
     <label for="">Vehiculos</label>
-    {!! Form::number('veh_id', null, ['class' => 'form-control','maxlength' => 255,'maxlength' => 255]) !!}
+    {!! Form::text('veh_id', null, ['class' => 'form-control']) !!}
     </div>    
     <div class="col-md-4">
+
     <label for="">Valor Unitario</label>
-    {!! Form::number('ivd_vu', null, ['class' => 'form-control','maxlength' => 255,'maxlength' => 255]) !!}
+    {!! Form::number('ivd_vu', null, ['class' => 'form-control']) !!}
     </div>
+
     <div class="col-md-4">
     <label for="">Estado</label>
-    {!! Form::text('ivd_estado', ['NUEVO'=>'NUEVO',
-                                  'USADO'=>'USADO',
-                                  'CHOCADO'=>'CHOCADO'], null, ['class' => 'form-control']) !!}
+    {!! Form::label('ivd_estado', 'Ivd Estado:') !!}
+    {!! Form::select('ivd_estado',['NUEVO'=>'NUEVO', 'USADO'=>'USADO', 'ROBADO'=>'ROBADO'] ,null, ['class' => 'form-control']) !!}
     </div>            
 </div>
 
 
 </div>
 <!-- Submit Field -->
-<div class="form-group col-sm-12">
-    {!! Form::submit('Save', ['class' => 'btn btn-primary']) !!}
-    <a href="{{ route('inventarios.index') }}" class="btn btn-secondary">Cancel</a>
+<div class="container">
+    <button type="submit" class="btn btn-primary" name="btn_guargar" value="btn_guardar"> <b>GUARDAR</b> </button>
 </div>
 
+</div>
+
+<!-- Button trigger modal -->
+<button type="button" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#exampleModal">
+  Launch demo modal
+</button>
+
+<!-- Modal -->
+<div class="modal fade" id="mld_autos" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+  <div class="modal-dialog">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h1 class="modal-title fs-5" id="exampleModalLabel">Modal title</h1>
+        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+      </div>
+      <div class="modal-body">
+        ...
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+        <button type="button" class="btn btn-primary">Save changes</button>
+      </div>
+    </div>
+  </div>
 </div>
