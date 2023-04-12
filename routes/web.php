@@ -54,4 +54,18 @@ Route::resource('inventarioDets', App\Http\Controllers\InventarioDetController::
 
 
 Route::post('/inventarios/create/busca_vehiculos',
-    'App\Http\Controllers\VehiculosController@busca_vehiculos')->name('busca_vehiculos');
+           'App\Http\Controllers\VehiculosController@busca_vehiculos')
+           ->name('busca_vehiculos');
+
+Route::post('/inventarios/create/getautobyid',
+            'App\Http\Controllers\VehiculosController@getautobyid')
+            ->name('getautobyid');
+
+
+Route::post('/inventarios/{id}edit/busca_vehiculos',
+           'App\Http\Controllers\VehiculosController@busca_vehiculos')
+           ->name('busca_vehiculos');
+
+Route::post('/inventarios/{id}edit/getautobyid',
+            'App\Http\Controllers\VehiculosController@getautobyid')
+            ->name('getautobyid');

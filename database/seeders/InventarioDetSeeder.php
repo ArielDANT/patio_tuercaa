@@ -20,7 +20,7 @@ class InventarioDetSeeder extends Seeder
             'ive_id'=>1,
             'veh_id'=>1,           
             'ivd_cantidad'=>'12', 
-            'ivd_vu'=>'2'           
+            //'ivd_vu'=>'2'           
             ]);
     }
 }

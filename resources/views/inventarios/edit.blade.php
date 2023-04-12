@@ -23,6 +23,14 @@
                               @include('inventarios.fields')
 
                               {!! Form::close() !!}
+
+                              <form action="{{ route('inventarios.destroy',0) }}"
+                                            method="POST"
+                                            id="frm_delete">
+                                    @csrf
+                                    <input type="hidden" name="_method" value="DELETE">
+                                    <input type="hidden" id="ivd_id" name="ivd_id" value="0">
+                              </form>
                             </div>
                         </div>
                     </div>

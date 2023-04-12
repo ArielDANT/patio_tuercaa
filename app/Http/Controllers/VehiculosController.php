@@ -11,7 +11,6 @@ use Flash;
 use Response;
 use App\Models\Empresa;
 use DB;
-
 class VehiculosController extends AppBaseController
 {
     /** @var VehiculosRepository $vehiculosRepository*/
@@ -31,8 +30,8 @@ class VehiculosController extends AppBaseController
      */
     public function index(Request $request)
     {
-        //$vehiculos = $this->vehiculosRepository->all();
-     $vehiculos=DB::select("SELECT * FROM empresa e join vehiculos v on e.emp_id=v.emp_id");
+        // $vehiculos = $this->vehiculosRepository->all();
+        $vehiculos = DB:: select("SELECT * FROM vehiculos u join empresa e on e.emp_id=u.emp_id");
 
         return view('vehiculos.index')
             ->with('vehiculos', $vehiculos);
@@ -47,7 +46,8 @@ class VehiculosController extends AppBaseController
     {
         $empresas=Empresa::pluck('emp_nombre','emp_id');
         return view('vehiculos.create')
-        ->with('empresas',$empresas);
+            ->with('empresas', $empresas)
+        ;
     }
 
     /**
@@ -108,7 +108,8 @@ class VehiculosController extends AppBaseController
 
         return view('vehiculos.edit')
         ->with('vehiculos', $vehiculos)
-        ->with('empresas',$empresas);
+        ->with('empresas', $empresas)
+        ;
     }
 
     /**
@@ -162,8 +163,24 @@ class VehiculosController extends AppBaseController
         return redirect(route('vehiculos.index'));
     }
 
-    public function busca_vehiculos(Request $rq)
-    {
-    dd($rq->all());
-}
+    public function busca_vehiculos(Request $rq){
+        $dt=$rq->all();
+         $vehiculo=$dt['vehiculo'];
+
+         $result=DB::select("SELECT * FROM vehiculos
+                  WHERE (veh_marca LIKE '%$vehiculo%' 
+                  OR veh_modelo LIKE '%$vehiculo%' 
+                 OR veh_subtipo LIKE '%$vehiculo%')");
+                  return Response()->json($result);
+
+    }
+
+    public function getautobyid(request $rq){
+        $dt=$rq->all();
+        $veh_id=$dt['veh_id'];
+        $vehiculo=$this->vehiculosRepository->find($veh_id);
+        //dd($vehiculo);
+        return Response()->json($vehiculo);
+    }
+
 }

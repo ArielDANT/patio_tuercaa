@@ -18,7 +18,7 @@ class CreateInventarioDetTable extends Migration
             $table->foreignId('ive_id')->references('ive_id')->on('inventario');
             $table->foreignId('veh_id')->references('veh_id')->on('vehiculos');
             $table->integer('ivd_cantidad');
-            $table->float('ivd_vu');
+            //$table->float('ivd_vu');
             $table->string('ivd_estado')->default('NUEVO');
         });
     }

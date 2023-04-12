@@ -11,6 +11,8 @@ use Flash;
 use Response;
 use App\Models\Proveedores;
 use App\Models\Vehiculos;
+use App\Models\InventarioDetalle;
+use DB;
 
 class InventarioController extends AppBaseController
 {
@@ -64,12 +66,31 @@ class InventarioController extends AppBaseController
     public function store(CreateInventarioRequest $request)
     {
         $input = $request->all();
+        $encabezado=[
+          "pro_id"=>$input['pro_id'],
+          "ive_fecha"=>$input['ive_fecha'],
+          "ive_documento"=>$input['ive_documento'],
+          "ive_estado"=>$input['ive_estado']        
+        ];
+        $inventario = $this->inventarioRepository->create($encabezado);
+        
+        $detalle=[
+           "ive_id"=>$inventario->ive_id,
+           "veh_id"=>$input['veh_id'],
+           "ivd_cantidad"=>$input['ivd_cantidad'],
+           //"ivd_vunit"=>$input['ivd_vunit'],
+           "ivd_estado"=>$input['ivd_estado']
+        ];
 
-        $inventario = $this->inventarioRepository->create($input);
+        InventarioDetalle::create($detalle);
 
-        Flash::success('Inventario saved successfully.');
+        return redirect(route('inventarios.edit',$inventario->ive_id));
 
-        return redirect(route('inventarios.index'));
+        //Flash::success('Inventario saved successfully.');
+
+        //return redirect(route('inventarios.index'));
+
+
     }
 
     /**
@@ -102,14 +123,21 @@ class InventarioController extends AppBaseController
     public function edit($id)
     {
         $inventario = $this->inventarioRepository->find($id);
-
-        if (empty($inventario)) {
-            Flash::error('Inventario not found');
-
-            return redirect(route('inventarios.index'));
-        }
-
-        return view('inventarios.edit')->with('inventario', $inventario);
+        $proveedores=Proveedores::orderBy('pro_nombres')->pluck('pro_nombres','pro_id');
+        //$detalle=InventarioDetalle::where("ive_id",$id)
+        $detalle=DB::select("SELECT * FROM inventario_det ivd 
+            JOIN vehiculos vh ON ivd.veh_id=vh.veh_id
+            WHERE ivd_id=$id
+            ");
+        //if (empty($inventario)) {
+        //    Flash::error('Inventario not found');
+//
+        //    return redirect(route('inventarios.index'));
+        //}
+        return view('inventarios.edit')
+        ->with('inventario', $inventario)
+        ->with('proveedores', $proveedores)
+        ->with('detale', $detalle);
     }
 
     /**
@@ -122,19 +150,30 @@ class InventarioController extends AppBaseController
      */
     public function update($id, UpdateInventarioRequest $request)
     {
-        $inventario = $this->inventarioRepository->find($id);
+        $input = $request->all();
+        //dd($inventario);
+        $detalle=[
+            "ive_id"=>$id,
+            "veh_id"=>$input["veh_id"],
+            "ivd_cantidad"=>$input["ivd_cantidad"],
+            //"ivd_vu" =>$input["ivd_vu"],
+            "ivd_estado" =>$input["ivd_estado"]
+        ];
+        InventarioDetalle::create($detalle);
+        return redirect(route('inventarios.edit',$id));
+        //$inventario = $this->inventarioRepository->find($id);
 
-        if (empty($inventario)) {
-            Flash::error('Inventario not found');
+       // if (empty($inventario)) {
+        //    Flash::error('Inventario not found');
 
-            return redirect(route('inventarios.index'));
-        }
+        //    return redirect(route('inventarios.index'));
+        //}
 
-        $inventario = $this->inventarioRepository->update($request->all(), $id);
+        //$inventario = $this->inventarioRepository->update($request->all(), $id);
 
-        Flash::success('Inventario updated successfully.');
+        //Flash::success('Inventario updated successfully.');
 
-        return redirect(route('inventarios.index'));
+        //return redirect(route('inventarios.index'));
     }
 
     /**
@@ -148,18 +187,23 @@ class InventarioController extends AppBaseController
      */
     public function destroy($id)
     {
-        $inventario = $this->inventarioRepository->find($id);
+        $detalle=inventarioDetalle::find($id);
+        $ive_id=$detalle->ive_id;
+        InventarioDetalle::destroy($id);
+        return redirect(route('inventarios.edit',$ive_id));
 
-        if (empty($inventario)) {
-            Flash::error('Inventario not found');
+        //$inventario = $this->inventarioRepository->find($id);
 
-            return redirect(route('inventarios.index'));
-        }
+        //if (empty($inventario)) {
+        //    Flash::error('Inventario not found');
 
-        $this->inventarioRepository->delete($id);
+        //    return redirect(route('inventarios.index'));
+        //}
 
-        Flash::success('Inventario deleted successfully.');
+        //$this->inventarioRepository->delete($id);
 
-        return redirect(route('inventarios.index'));
+        //Flash::success('Inventario deleted successfully.');
+
+        //return redirect(route('inventarios.index'));
     }
 }
